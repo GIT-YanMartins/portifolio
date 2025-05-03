@@ -3,6 +3,9 @@ import * as M from "./main_style.js"
 import MatrixEffect from "../MatrixEffect/MatrixEffect";
 import { UserContext } from "../../context/UserContext";
 import { SiPython, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
+import Avatar from "../Assets/Avatar.png";
+import Ralph from "../Assets/Ralph.png";
+import Dell from "../Assets/Dell.png";
 
 const translations = {
   home: {
@@ -37,22 +40,22 @@ const experiencias = [
 
 const projetosFrontEnd = [
   {
-    image: "",
+    image: Avatar,
     title: "Landing Page Avatar",
     tech: "JavaScript | HTML | CSS",
     link: ""
   },
   {
-    image: "",
-    title: "Amigão",
-    tech: "JavaScript | HTML | CSS",
-    link: ""
+    image: Ralph,
+    title: "Jogo: Detona Ralph",
+    tech: "JavaScript | HTML",
+    link: "https://github.com/GIT-YanMartins/Detona_ralph_DIO"
   },
   {
-    image: "",
+    image: Dell,
     title: "API de Filmes",
-    tech: "JavaScript | HTML | CSS",
-    link: ""
+    tech: "JavaScript",
+    link: "https://github.com/GIT-YanMartins/DellChallengeAPI"
   }
 ];
 
@@ -98,9 +101,7 @@ const projetosPowerBI = [
   }
 ];
 
-const Main = () => {
-  const { language } = useContext(UserContext);
-  const t = translations[language];
+export default function Appi() {
   const { userName } = useContext(UserContext);
   const scrollToContact = (e) => {
     e.preventDefault();
@@ -114,7 +115,8 @@ const Main = () => {
       <M.HeroSection>
         <M.HeroContent>
           <M.Title>
-            {t.im} <span>Yan Gabriel</span>
+            {translations.home.im} <span>Yan</span>,<br />
+            {translations.home.webDeveloper}
           </M.Title>
           <M.TechStack>
             <M.PythonIcon>
@@ -130,8 +132,8 @@ const Main = () => {
               <SiCss3 size={20} />
             </M.CssIcon>
           </M.TechStack>
-          <M.Subtitle>{t.webDeveloper}</M.Subtitle>
-          <M.ContactButton onClick={scrollToContact}>{t.contactMe}</M.ContactButton>
+          <M.Subtitle>{translations.home.frontEnd} / {translations.home.wordPress}</M.Subtitle>
+          <M.ContactButton onClick={scrollToContact}>{translations.home.contactMe}</M.ContactButton>
         </M.HeroContent>
       </M.HeroSection>
       <M.PresentationSection>
@@ -204,6 +206,4 @@ const Main = () => {
       </div>
     </M.Main>
   );
-};
-
-export default Main;
+}
