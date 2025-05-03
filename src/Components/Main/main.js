@@ -5,7 +5,7 @@ import { UserContext } from "../../context/UserContext";
 import { SiPython, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
 import Avatar from "../Assets/Avatar.png";
 import Ralph from "../Assets/Ralph.png";
-import Dell from "../Assets/Dell.png";
+import Dell from "../Assets/APIfilmes.png";
 
 const translations = {
   home: {
