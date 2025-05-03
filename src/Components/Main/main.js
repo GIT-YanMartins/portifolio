@@ -5,7 +5,8 @@ import { UserContext } from "../../context/UserContext";
 import { SiPython, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
 import Avatar from "../Assets/Avatar.png";
 import Ralph from "../Assets/Ralph.png";
-import Dell from "../Assets/APIfilmes.png";
+import Portflow from "../Assets/Portflow.png";
+
 
 const translations = {
   home: {
@@ -40,10 +41,10 @@ const experiencias = [
 
 const projetosFrontEnd = [
   {
-    image: Avatar,
-    title: "Landing Page Avatar",
+    image: Portflow,
+    title: "Portflow",
     tech: "JavaScript | HTML | CSS",
-    link: ""
+    link: "https://github.com/GIT-YanMartins/PortflowChallenge"
   },
   {
     image: Ralph,
@@ -52,7 +53,7 @@ const projetosFrontEnd = [
     link: "https://github.com/GIT-YanMartins/Detona_ralph_DIO"
   },
   {
-    image: Dell,
+    image: Avatar,
     title: "API de Filmes",
     tech: "JavaScript",
     link: "https://github.com/GIT-YanMartins/DellChallengeAPI"
