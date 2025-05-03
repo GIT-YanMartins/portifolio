@@ -98,7 +98,9 @@ const projetosPowerBI = [
   }
 ];
 
-export default function Appi() {
+const Main = () => {
+  const { language } = useContext(UserContext);
+  const t = translations[language];
   const { userName } = useContext(UserContext);
   const scrollToContact = (e) => {
     e.preventDefault();
@@ -112,8 +114,7 @@ export default function Appi() {
       <M.HeroSection>
         <M.HeroContent>
           <M.Title>
-            {translations.home.im} <span>Yan</span>,<br />
-            {translations.home.webDeveloper}
+            {t.im} <span>Yan Gabriel</span>
           </M.Title>
           <M.TechStack>
             <M.PythonIcon>
@@ -129,8 +130,8 @@ export default function Appi() {
               <SiCss3 size={20} />
             </M.CssIcon>
           </M.TechStack>
-          <M.Subtitle>{translations.home.frontEnd} / {translations.home.wordPress}</M.Subtitle>
-          <M.ContactButton onClick={scrollToContact}>{translations.home.contactMe}</M.ContactButton>
+          <M.Subtitle>{t.webDeveloper}</M.Subtitle>
+          <M.ContactButton onClick={scrollToContact}>{t.contactMe}</M.ContactButton>
         </M.HeroContent>
       </M.HeroSection>
       <M.PresentationSection>
@@ -203,4 +204,6 @@ export default function Appi() {
       </div>
     </M.Main>
   );
-}
+};
+
+export default Main;

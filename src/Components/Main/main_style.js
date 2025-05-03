@@ -141,6 +141,10 @@ export const Title = styled.h1`
   font-weight: 700;
   position: relative;
   z-index: 2;
+  color: #fff;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 
   span {
     color: #0096ff;
@@ -148,7 +152,8 @@ export const Title = styled.h1`
   }
 
   @media (max-width: 768px) {
-    font-size: 3.5rem;
+    font-size: 2.2rem;
+    text-align: left;
   }
 `;
 
