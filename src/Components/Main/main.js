@@ -6,6 +6,8 @@ import { SiPython, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
 import Avatar from "../Assets/Avatar.png";
 import Ralph from "../Assets/Ralph.png";
 import Portflow from "../Assets/Portflow.png";
+import BI from "../Assets/BIDIO.png";
+import PGGEOL from "../Assets/pggeol.png";
 
 
 const translations = {
@@ -83,13 +85,13 @@ const projetosBackEnd = [
 
 const projetosPowerBI = [
   {
-    image: "",
+    image: BI,
     title: "Dashboard de Vendas",
     tech: "Power BI | SQL",
     link: ""
   },
   {
-    image: "",
+    image: PGGEOL,
     title: "Análise de Dados para o Programa de Pós-Graduação em Geologia da UFBA",
     tech: "Power BI | Excel",
     link: ""
@@ -113,7 +115,8 @@ export default function Appi() {
   return (
     <M.Main>
       <MatrixEffect />
-      <M.HeroSection>
+
+      <M.HeroSection id="inicio">
         <M.HeroContent>
           <M.Title>
             {translations.home.im} <span>Yan</span>,<br />
@@ -137,7 +140,8 @@ export default function Appi() {
           <M.ContactButton onClick={scrollToContact}>{translations.home.contactMe}</M.ContactButton>
         </M.HeroContent>
       </M.HeroSection>
-      <M.PresentationSection>
+      
+      <M.PresentationSection id="sobre">
         <M.PhotoBox>
           <img src="sua-foto.jpg" alt="Yan Gabriel Martins" />
         </M.PhotoBox>
@@ -161,6 +165,7 @@ export default function Appi() {
           ))}
         </M.ExperienciasList>
       </M.ExperienciasSection>
+
       <div id="projetos">
         <M.ProjectSectionTitle>Projetos Front-end</M.ProjectSectionTitle>
         <M.ProjectsGrid>
@@ -205,6 +210,8 @@ export default function Appi() {
           ))}
         </M.ProjectsGrid>
       </div>
+
+
     </M.Main>
   );
 }

@@ -2,15 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import * as S from './header_style.js';
 import { UserContext } from '../../context/UserContext';
 
-const translations = {
-  header: {
-    home: "Início",
-    about: "Sobre",
-    projects: "Projetos",
-    contact: "Contato"
-  }
-};
-
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { userName, setUserName } = useContext(UserContext);
@@ -27,10 +18,12 @@ export default function Header() {
     setMenuOpen(!menuOpen);
   };
 
-  const scrollToProjects = (e) => {
+  const scrollToSection = (e, sectionId) => {
     e.preventDefault();
-    const projectsSection = document.getElementById('projetos');
-    projectsSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
     setMenuOpen(false);
   };
 
@@ -38,9 +31,9 @@ export default function Header() {
     <S.Header>
       <S.Logo>Olá {userName + "!" || ''}</S.Logo>
       <S.Nav menuOpen={menuOpen}>
-        <S.NavLink href="#home" onClick={() => setMenuOpen(false)}>{translations.header.home}</S.NavLink>
-        <S.NavLink href="#about" onClick={() => setMenuOpen(false)}>{translations.header.about}</S.NavLink>
-        <S.NavLink href="#projects" onClick={scrollToProjects}>{translations.header.projects}</S.NavLink>
+        <S.NavLink href="#inicio" onClick={(e) => scrollToSection(e, 'inicio')}>Início</S.NavLink>
+        <S.NavLink href="#sobre" onClick={(e) => scrollToSection(e, 'sobre')}>Sobre</S.NavLink>
+        <S.NavLink href="#projetos" onClick={(e) => scrollToSection(e, 'projetos')}>Projetos</S.NavLink>
       </S.Nav>
       <S.MenuButton onClick={toggleMenu} menuOpen={menuOpen}>
         <span></span>
