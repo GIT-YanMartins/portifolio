@@ -89,13 +89,13 @@ const projetosPowerBI = [
     image: BI,
     title: "Dashboard de Vendas",
     tech: "Power BI | SQL",
-    link: ""
+    link: "https://github.com/GIT-YanMartins/PowerBIChallenger"
   },
   {
     image: PGGEOL,
     title: "Análise de Dados para o Programa de Pós-Graduação em Geologia da UFBA",
     tech: "Power BI | Excel",
-    link: ""
+    link: "https://github.com/GIT-YanMartins/Monitoramento_socialPG"
   },
   {
     image: "",
