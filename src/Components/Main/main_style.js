@@ -250,7 +250,8 @@ export const PhotoBox = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+    object-position: center 30%;
+    }
 `;
 
 export const PresentationContent = styled.div`
@@ -899,4 +900,17 @@ export const CssIcon = styled(TechIcon)`
     color: #1572B6;
     background: rgba(21, 114, 182, 0.2);
   }
+`;
+
+export const ProjectComingSoon = styled.div`
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 `;

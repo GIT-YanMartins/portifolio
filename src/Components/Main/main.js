@@ -8,6 +8,7 @@ import Ralph from "../Assets/Ralph.png";
 import Portflow from "../Assets/Portflow.png";
 import BI from "../Assets/BIDIO.png";
 import PGGEOL from "../Assets/pggeol.png";
+import Yan from "../Assets/yan.jpg";
 
 
 const translations = {
@@ -30,7 +31,7 @@ const experiencias = [
   {
     cargo: "Estagiário em Geologia",
     empresa: "Seviço Geológico do Brasil",
-    periodo: "2024 - Presente",
+    periodo: "2024.2 - 2026.2",
     descricao: "No SGB, atuo como estagiário da Gestão de Recursos Minerais (GEREMI), desenvolvendo atividades no Projeto ETR na Folha Amargosa, das atividades desenvolvidas, tivemos: Confecção do mapa base, aquisição de dados aeroogeofísicos e mapa litológico preditivo, utilizando o Gradient Boost."
   },
   {
@@ -143,7 +144,7 @@ export default function Appi() {
       
       <M.PresentationSection id="sobre">
         <M.PhotoBox>
-          <img src="sua-foto.jpg" alt="Yan Gabriel Martins" />
+          <img src= {Yan} alt="Yan Gabriel Martins" />
         </M.PhotoBox>
         <M.PresentationContent>
           <h3>Olá <span>{userName}</span>, meu nome é Yan Gabriel Martins, tenho 25 anos, atualmente, desenvolvo atividades na área da programação com ênfase em aplicações para Geologia. Desenvolvedor de Tecnologias Full Stack, graduando em Geologia pela Universidade Federal da Bahia (UFBA), atuo como estagiário no Serviço Geológico do Brasil (SGB), desenvolvendo métodos de classificação supervisionada em python para gerar Mapas Litológicos Preditivos, com o Gradient Boost.</h3>
@@ -172,7 +173,13 @@ export default function Appi() {
           {projetosFrontEnd.map((projeto, index) => (
             <a href={projeto.link} target="_blank" rel="noopener noreferrer" key={index}>
               <M.ProjectCard>
-                <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                {(!projeto.image || projeto.image === "") && (!projeto.link || projeto.link === "" || projeto.link === "#") ? (
+                  <M.ProjectComingSoon>
+                    Em breve
+                  </M.ProjectComingSoon>
+                ) : (
+                  <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                )}
                 <M.ProjectInfo>
                   <M.ProjectTitle>{projeto.title}</M.ProjectTitle>
                   <M.ProjectLanguage>{projeto.tech}</M.ProjectLanguage>
@@ -181,12 +188,19 @@ export default function Appi() {
             </a>
           ))}
         </M.ProjectsGrid>
+
         <M.ProjectSectionTitle>Projetos Back-end</M.ProjectSectionTitle>
         <M.ProjectsGrid>
           {projetosBackEnd.map((projeto, index) => (
             <a href={projeto.link} target="_blank" rel="noopener noreferrer" key={index}>
               <M.ProjectCard>
-                <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                {(!projeto.image || projeto.image === "") && (!projeto.link || projeto.link === "" || projeto.link === "#") ? (
+                  <M.ProjectComingSoon>
+                    Em breve
+                  </M.ProjectComingSoon>
+                ) : (
+                  <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                )}
                 <M.ProjectInfo>
                   <M.ProjectTitle>{projeto.title}</M.ProjectTitle>
                   <M.ProjectLanguage>{projeto.tech}</M.ProjectLanguage>
@@ -200,7 +214,13 @@ export default function Appi() {
           {projetosPowerBI.map((projeto, index) => (
             <a href={projeto.link} target="_blank" rel="noopener noreferrer" key={index}>
               <M.ProjectCard>
-                <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                {(!projeto.image || projeto.image === "") && (!projeto.link || projeto.link === "" || projeto.link === "#") ? (
+                  <M.ProjectComingSoon>
+                    Em breve
+                  </M.ProjectComingSoon>
+                ) : (
+                  <M.ProjectImage src={projeto.image} alt={projeto.title} />
+                )}
                 <M.ProjectInfo>
                   <M.ProjectTitle>{projeto.title}</M.ProjectTitle>
                   <M.ProjectLanguage>{projeto.tech}</M.ProjectLanguage>
@@ -208,6 +228,7 @@ export default function Appi() {
               </M.ProjectCard>
             </a>
           ))}
+
         </M.ProjectsGrid>
       </div>
 
