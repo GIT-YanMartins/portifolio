@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
-import { NAME_ACCESSIBILITY_PROMPT } from "../constants/prompts";
+import { UserContext } from "../../context/UserContext";
+import { NAME_ACCESSIBILITY_PROMPT } from "../../constants/prompts";
 import "./Header.css";
 
 const links = [

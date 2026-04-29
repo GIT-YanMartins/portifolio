@@ -60,7 +60,7 @@ export default function ProjectsPage() {
     <div id="projetos" className="projects-page">
       <ProjectGroup title="Projetos Front-end" projects={projetosFrontEnd} />
       <ProjectGroup title="Projetos Back-end" projects={projetosBackEnd} />
-      <ProjectGroup title="Projetos Power BI" projects={projetosPowerBI} />
+      <ProjectGroup title="Projetos Databases" projects={projetosPowerBI} />
     </div>
   );
 }

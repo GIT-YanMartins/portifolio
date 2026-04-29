@@ -3,6 +3,8 @@ import Ralph from "../assets/images/Ralph.png";
 import Portflow from "../assets/images/Portflow.png";
 import BI from "../assets/images/BIDIO.png";
 import PGGEOL from "../assets/images/pggeol.png";
+import FrontDevelopment from "../assets/images/frontDevelopment.png";
+import BackDevelopment from "../assets/images/back_development.png";
 
 export const projetosFrontEnd = [
   {
@@ -23,23 +25,29 @@ export const projetosFrontEnd = [
     tech: "JavaScript",
     link: "https://github.com/GIT-YanMartins/DellChallengeAPI",
   },
+  {
+    image: FrontDevelopment,
+    title: "Noronhaverso",
+    tech: "React | JavaScript | CSS",
+    link: "https://git-yanmartins.github.io/Noronhaverso/",
+  },
 ];
 
 export const projetosBackEnd = [
   {
-    image: "",
+    image: BackDevelopment,
     title: "Calculadora de Juros Compostos",
     tech: "Python",
     link: "",
   },
   {
-    image: "",
+    image: BackDevelopment,
     title: "Propensão de diabetes",
     tech: "SQL | Power BI | Excel",
     link: "",
   },
   {
-    image: "",
+    image: BackDevelopment,
     title: "Em breve...",
     tech: "Python",
     link: "#",
@@ -55,7 +63,8 @@ export const projetosPowerBI = [
   },
   {
     image: PGGEOL,
-    title: "Análise de Dados para o Programa de Pós-Graduação em Geologia da UFBA",
+    title:
+      "Análise de Dados para o Programa de Pós-Graduação em Geologia da UFBA",
     tech: "Power BI | Excel",
     link: "https://github.com/GIT-YanMartins/Monitoramento_socialPG",
   },
