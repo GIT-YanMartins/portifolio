@@ -1824,6 +1824,71 @@ pages/ProjectsPage.css grid, minmax/repeat, > seletor, @media, :hover
 public/index.html  DOCTYPE, meta, links, #root, noscript, %PUBLIC_URL%
 
 
+--------------------------------------------------------------------------------
+21. ATUALIZACOES RECENTES DO PROJETO (REFACTOR + NOVOS PROJETOS)
+--------------------------------------------------------------------------------
+
+Registo adicionado para documentar as alteracoes implementadas na reorganizacao da
+estrutura e na secao de projetos.
+
+21.1 Reorganizacao estrutural (padrao React)
+
+• Foi criada a pasta `src/components` com separacao por responsabilidade:
+  - `src/components/header`
+  - `src/components/main`
+  - `src/components/footer`
+
+• Os componentes principais foram migrados para `.jsx`:
+  - `src/components/header/Header.jsx`
+  - `src/components/main/Main.jsx`
+  - `src/components/footer/Footer.jsx`
+
+• Os estilos foram co-localizados junto dos componentes:
+  - `src/components/header/Header.css`
+  - `src/components/main/Main.css`
+  - `src/components/footer/Footer.css`
+
+• O `Layout` foi atualizado para consumir os novos componentes:
+  - `src/layout/Layout.js` importa `Header`, `Main` e `Footer` de `src/components`.
+
+• O ponto de entrada foi simplificado:
+  - remocao do import de `src/styles/layout.css` em `src/index.js`.
+
+• Arquivos antigos removidos:
+  - `src/layout/Header.js`, `src/layout/Header.css`
+  - `src/layout/Footer.js`, `src/layout/Footer.css`
+  - `src/styles/layout.css`
+
+21.2 Legibilidade e identacao
+
+• Foi aplicada formatacao com Prettier nos ficheiros do projeto (JS/JSX/CSS/HTML),
+  padronizando identacao, espacamento e quebra de linhas para leitura mais clara.
+
+21.3 Atualizacoes da pagina de projetos
+
+• `src/data/portfolioData.js`:
+  - adicao de imports:
+    `frontDevelopment.png` e `back_development.png`;
+  - novo item em Front-end:
+    projeto "Noronhaverso" com imagem `frontDevelopment.png`;
+  - todos os itens de Back-end passaram a usar `back_development.png`,
+    representando estado em construcao.
+
+• `src/pages/ProjectsPage.js`:
+  - titulo da terceira secao atualizado para "Projetos Databases".
+
+• `src/pages/ProjectsPage.css`:
+  - cada secao de cards passou a ter rolagem horizontal;
+  - limite visual padrao de 3 cards por vez (desktop);
+  - em mobile, 1 card por vez;
+  - barra de rolagem aparece automaticamente quando a lista excede o limite.
+
+21.4 Verificacao tecnica
+
+• Build de producao executada com sucesso (`npm run build`).
+• Verificacao de lint nos ficheiros alterados sem erros.
+
+
 ================================================================================
 Fim do guia. As secções 1–18 explicam o fluxo e padrões; a secção 19 lista cada conceito
 com o título “O QUE É…” (métodos, hooks, DOM, CSS, HTML, módulos) e exemplos de trechos; a

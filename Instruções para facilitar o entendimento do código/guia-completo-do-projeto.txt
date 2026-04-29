@@ -1,0 +1,243 @@
+================================================================================
+GUIA COMPLETO DO PROJETO — PORTFOLIO REACT
+================================================================================
+
+Objetivo deste documento
+- Explicar o projeto por completo, em linguagem simples e didática.
+- Cobrir estrutura, fluxo, funções, arrow functions, hooks, rotas, CSS e dados.
+- Servir como material de estudo e manutenção futura.
+
+
+================================================================================
+1) VISÃO GERAL DA APLICAÇÃO
+================================================================================
+
+Descrição conceitual
+- Projeto SPA (Single Page Application) em React, focado em portfólio pessoal.
+- A navegação acontece no cliente com roteamento, sem recarregar a página inteira.
+- A interface é dividida em blocos reutilizáveis e páginas.
+
+Exemplo
+- Ao clicar em "Sobre", a URL muda para `#/sobre` e só o conteúdo principal troca.
+
+
+================================================================================
+2) ESTRUTURA DE PASTAS (ATUAL)
+================================================================================
+
+Descrição conceitual
+- A estrutura separa responsabilidades: entrada, rotas, layout, componentes, páginas, dados e estilos.
+- Isso reduz acoplamento e facilita manutenção.
+
+Exemplo
+- Para adicionar um novo projeto, você altera `src/data/portfolioData.js` sem mexer na estrutura de roteamento.
+
+
+================================================================================
+3) FLUXO DE EXECUÇÃO (DO INÍCIO AO FIM)
+================================================================================
+
+Descrição conceitual
+- O fluxo começa no ponto de entrada e termina na renderização da página ativa dentro do layout padrão.
+- O `Outlet` é o ponto dinâmico onde a rota selecionada aparece.
+
+Exemplo
+- `index.js -> App.js -> Layout.js -> Main.jsx (Outlet) -> ProjectsPage.js`.
+
+
+================================================================================
+4) APP E ROTEAMENTO
+================================================================================
+
+Arquivo: `src/App.js`
+
+Descrição conceitual
+- O roteamento define qual página aparece para cada caminho de URL.
+- O uso de array de rotas reduz repetição e torna as rotas declarativas.
+
+Exemplo
+- `const appRoutes = [{ path: "/", element: <HomePage /> }, ...]` e renderização com `.map(...)`.
+
+
+================================================================================
+5) CONTEXTO GLOBAL (USERCONTEXT)
+================================================================================
+
+Arquivo: `src/context/UserContext.js`
+
+Descrição conceitual
+- Context API compartilha estado entre componentes distantes sem passar props manualmente por vários níveis.
+
+Exemplo
+- `Header` chama `setUserName("Yan")` e `AboutPage` lê `userName` automaticamente.
+
+
+================================================================================
+6) LAYOUT E COMPONENTIZAÇÃO
+================================================================================
+
+Arquivo: `src/layout/Layout.js`
+
+Descrição conceitual
+- Componentização divide a interface em blocos reutilizáveis, com responsabilidades claras.
+
+Exemplo
+- O `Footer` aparece em todas as páginas sem duplicar código.
+
+
+================================================================================
+7) HEADER (MENU + SAUDAÇÃO)
+================================================================================
+
+Arquivo: `src/components/header/Header.jsx`
+
+Descrição conceitual
+- O Header combina estado local (menu), estado global (nome) e efeitos de inicialização.
+
+Exemplo
+- `onClick={() => setMenuOpen((open) => !open)}` alterna o menu com base no estado anterior.
+
+
+================================================================================
+8) HOME PAGE
+================================================================================
+
+Arquivo: `src/pages/HomePage.js`
+
+Descrição conceitual
+- A Home usa renderização orientada a dados (array de ícones) e interação suave para navegação interna.
+
+Exemplo
+- Clicar em "Entre em Contato!" executa `scrollIntoView` até `id="contato"`.
+
+
+================================================================================
+9) ABOUT PAGE
+================================================================================
+
+Arquivo: `src/pages/AboutPage.js`
+
+Descrição conceitual
+- Página de conteúdo textual com personalização simples via contexto.
+
+Exemplo
+- O texto "Olá {userName}" muda conforme o nome informado no Header.
+
+
+================================================================================
+10) PROJECTS PAGE (PARTE MAIS DINÂMICA)
+================================================================================
+
+Arquivo: `src/pages/ProjectsPage.js`
+
+Descrição conceitual
+- Página orientada a configuração, com funções utilitárias para regras de exibição.
+
+Exemplo
+- Se `repoLink` estiver vazio, o botão "Repositório" aparece desabilitado no card.
+
+
+================================================================================
+11) DADOS DE PROJETOS
+================================================================================
+
+Arquivo: `src/data/portfolioData.js`
+
+Descrição conceitual
+- O arquivo centraliza dados estáticos, separando conteúdo da camada de apresentação.
+
+Exemplo
+- `createProject({ title: "Noronhaverso", deployLink: "...", repoLink: "" })`.
+
+
+================================================================================
+12) CSS E ESTILO VISUAL
+================================================================================
+
+Descrição conceitual
+- O CSS está modularizado por componente/página, mantendo responsabilidade local.
+
+Exemplo
+- Em `ProjectsPage.css`, o grid usa colunas automáticas e rolagem horizontal quando há mais de 3 cards.
+
+
+================================================================================
+13) FUNÇÕES E ARROW FUNCTIONS (RESUMO DIDÁTICO)
+================================================================================
+
+Descrição conceitual
+- Function declaration e arrow function resolvem problemas parecidos, mas são usadas em contextos diferentes para clareza.
+
+Exemplo
+- Declaration: `function sectionSlug(title) { ... }`
+- Arrow: `const hasValidLink = (link) => Boolean(link)`.
+
+
+================================================================================
+14) MÉTODOS E OPERADORES MAIS USADOS
+================================================================================
+
+Descrição conceitual
+- Métodos e operadores controlam transformação de dados, decisão de render e segurança de acesso.
+
+Exemplo
+- `title.replace(/\s+/g, "-").toLowerCase()` transforma "Projetos Front-end" em slug.
+
+
+================================================================================
+15) ACESSIBILIDADE E SEMÂNTICA
+================================================================================
+
+Descrição conceitual
+- Acessibilidade melhora uso por leitores de tela e aumenta qualidade semântica da aplicação.
+
+Exemplo
+- `aria-labelledby={`${slug}-heading`}` conecta a seção de projetos ao seu título.
+
+
+================================================================================
+16) MELHORIAS E REFACTORS JÁ REALIZADOS
+================================================================================
+
+Descrição conceitual
+- Refatoração busca reduzir repetição, aumentar legibilidade e facilitar evolução do código.
+
+Exemplo
+- A criação de `projectActions` eliminou duplicação de blocos de botão em `ProjectsPage.js`.
+
+
+================================================================================
+17) COMO EXPANDIR O PROJETO (GUIA PRÁTICO)
+================================================================================
+
+Descrição conceitual
+- O projeto foi preparado para escalar por configuração (dados e listas), não por cópia de blocos.
+
+Exemplo
+- Para nova rota, basta inserir `{ path: "/novo", element: <NovaPage /> }` no `appRoutes`.
+
+
+================================================================================
+18) CHECKLIST RÁPIDA POR ARQUIVO
+================================================================================
+
+Descrição conceitual
+- Checklist ajuda onboarding e revisão rápida de responsabilidades por arquivo.
+
+Exemplo
+- Em bug de card de projeto, os primeiros alvos são `portfolioData.js`, `ProjectsPage.js` e `ProjectsPage.css`.
+
+
+================================================================================
+19) CONCLUSÃO
+================================================================================
+
+Descrição conceitual
+- A organização atual privilegia simplicidade e leitura, com separação clara entre dados, estrutura e visual.
+
+Exemplo
+- Um novo colaborador consegue localizar rapidamente "onde mudar rota", "onde mudar dado" e "onde mudar estilo".
+
+================================================================================
+FIM DO GUIA COMPLETO
+================================================================================

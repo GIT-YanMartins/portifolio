@@ -1186,6 +1186,36 @@ Trecho:
 
 
 ================================================================================
+ADENDO — O QUE FOI ATUALIZADO NO PROJETO
+================================================================================
+
+Este adendo regista as mudancas recentes aplicadas ao codigo:
+
+1) Reestruturacao de componentes:
+- criacao de `src/components/header`, `src/components/main` e `src/components/footer`;
+- migracao de `Header`, `Main` e `Footer` para ficheiros `.jsx`;
+- co-localizacao dos CSS correspondentes junto de cada componente.
+
+2) Ajustes no layout:
+- `src/layout/Layout.js` passou a compor `Header + Main + Footer` a partir de
+  `src/components`;
+- remocao de imports/ficheiros antigos de layout legado.
+
+3) Melhoria de legibilidade:
+- aplicacao de formatacao e padronizacao de identacao com Prettier.
+
+4) Atualizacoes em projetos:
+- adicao do projeto front-end "Noronhaverso" com imagem `frontDevelopment.png`;
+- projetos de back-end usando `back_development.png` por estarem em construcao;
+- renomeacao da terceira secao para "Projetos Databases".
+
+5) Comportamento de exibicao dos cards:
+- cada secao de projetos ganhou rolagem horizontal;
+- limite visual de 3 cards por vez no desktop;
+- no mobile, exibicao de 1 card por vez com scroll horizontal quando necessario.
+
+
+================================================================================
 NOTA FINAL SOBRE ESTA SECÇÃO 19
 ================================================================================
 Todas as entradas acima **repetem em formato “O QUE É…”** o material que já existia nas
