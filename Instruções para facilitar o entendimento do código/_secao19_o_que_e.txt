@@ -1,0 +1,1196 @@
+19. ENCICLOPÉDIA — “O QUE É…” (CADA MÉTODO / FUNÇÃO / API / CONCEITO)
+--------------------------------------------------------------------------------
+
+Nesta secção, **cada tópico começa explicitamente por “O QUE É…”**, no formato que pediu
+(por exemplo: “O que é o método .map”). Nada do conteúdo anterior foi apagado: as
+secções 1–18 continuam a ser o guia narrativo; aqui consolidamos a mesma informação (e um
+pouco mais) sob forma de fichas. Quando fizer sentido, indicamos “Ver também” a outra
+secção deste mesmo ficheiro.
+
+Nota: em CSS falamos em **regras, propriedades, seletores e funções** (ex.: calc()), não
+em “métodos” ao estilo de JavaScript, mas o formato “O QUE É…” mantém-se para consistência.
+
+
+================================================================================
+O QUE É A PALAVRA-CHAVE CONST?
+================================================================================
+Definição: `const` declara uma variável cujo **binding** (a associação nome → valor) não
+pode ser reatribuído com `=` outra vez; o conteúdo de objetos/arrays pode mudar por dentro,
+mas não `const x = 1; x = 2`.
+Para que serve no projeto: guardar referências estáveis a estado, arrays de links, funções
+auxiliares e o objeto `root` do React.
+Trecho de código:
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const links = [
+    { to: "/", label: "Início" },
+    { to: "/sobre", label: "Sobre" },
+    { to: "/projetos", label: "Projetos" },
+  ];
+
+Ver também: secção 5.1, 19 (versão anterior em bullets nas secções 12–13).
+
+
+================================================================================
+O QUE É O import (IMPORTAÇÃO DE MÓDULOS)?
+================================================================================
+Definição: sintaxe ES modules que **liga ficheiros**: traz valores exportados de outro
+módulo para o ficheiro atual.
+Para que serve no projeto: carregar React, ReactDOM, Router, componentes, CSS, imagens e
+constantes.
+Trechos de código:
+
+  import React from "react";
+  import { HashRouter } from "react-router-dom";
+  import { createContext, useState } from "react";
+  import { NAME_ACCESSIBILITY_PROMPT } from "../constants/prompts";
+  import "./Header.css";
+  import profilePhoto from "../assets/images/yan.jpg";
+
+Ver também: secção 12, 13.
+
+
+================================================================================
+O QUE É O export default?
+================================================================================
+Definição: marca **uma** exportação principal do ficheiro; noutro ficheiro importa-se **sem
+chaves** e podes dar o nome que quiseres ao import.
+Para que serve no projeto: exportar o componente raiz de cada página e o `Layout`.
+Trecho de código:
+
+  export default function App() { ... }
+  export default function HomePage() { ... }
+
+  // noutro ficheiro:
+  import App from "./App";
+  import HomePage from "./pages/HomePage";
+
+Ver também: secção 2, 13.
+
+
+================================================================================
+O QUE É O export nomeado (export const / export function)?
+================================================================================
+Definição: exporta símbolos **com nomes fixos**; no import usas **chaves** `{ }` com os
+mesmos nomes (ou alias com `as`).
+Para que serve no projeto: `UserContext`, `UserProvider`, arrays de dados, constantes de
+texto.
+Trechos de código:
+
+  export const UserContext = createContext(null);
+  export function UserProvider({ children }) { ... }
+  export const projetosFrontEnd = [ ... ];
+  export const NAME_ACCESSIBILITY_PROMPT = "...";
+
+  import { UserContext, UserProvider } from "./context/UserContext";
+  import { projetosFrontEnd } from "../data/portfolioData";
+
+Ver também: secção 3, 10, 13.
+
+
+================================================================================
+O QUE É A DECLARAÇÃO function (FUNÇÃO NOMEADA)?
+================================================================================
+Definição: `function nome() { }` cria uma função hoisted (elevada) em relação ao corpo do
+módulo; em React define frequentemente um **componente**.
+Para que serve no projeto: `UserProvider`, `Layout`, `Header`, `isComingSoon`, `sectionSlug`,
+`ProjectGroup`, páginas, etc.
+Trecho de código:
+
+  export default function Layout() {
+    return ( <> ... </> );
+  }
+
+  function isComingSoon({ image, link }) { ... }
+
+Ver também: secções 4, 9.1–9.3.
+
+
+================================================================================
+O QUE É A ARROW FUNCTION (FUNÇÃO SETA)?
+================================================================================
+Definição: sintaxe `() => {}` ou `() => expressão`; compacta handlers e callbacks; **não**
+tem hoisting como `function`.
+Para que serve no projeto: `onClick`, callbacks dentro de `map`, atualização funcional de
+estado.
+Trechos de código:
+
+  onClick={() => setMenuOpen(false)}
+  onClick={() => setMenuOpen((open) => !open)}
+  useEffect(() => { ... }, [setUserName]);
+
+Ver também: secção 5.1, 5.4.
+
+
+================================================================================
+O QUE É A DESESTRUTURAÇÃO (DESTRUCTURING)?
+================================================================================
+Definição: sintaxe para **extrair** campos de objetos ou posições de arrays em variáveis
+locais numa única linha.
+Para que serve no projeto: ler `userName` do contexto; extrair `to`, `label` em cada item do
+`map`; receber `children` e props de projeto.
+Trechos de código:
+
+  const { userName, setUserName } = useContext(UserContext);
+  const { userName } = useContext(UserContext);
+  {links.map(({ to, label }) => ( ... ))}
+  {socialLinks.map(({ href, label, Icon, external }) => ( ... ))}
+
+Ver também: secções 5.3, 6, 8.
+
+
+================================================================================
+O QUE É O TEMPLATE LITERAL (STRING COM ` E ${})?
+================================================================================
+Definição: strings delimitadas por **crases** `` ` `` que permitem **interpolação** com
+`${expressão}` e quebras de linha.
+Para que serve no projeto: montar `className` dinâmico, mensagens do `alert`, ids em
+`aria-labelledby`.
+Trechos de código:
+
+  className={`site-nav${menuOpen ? " site-nav--open" : ""}`}
+  alert(`Olá, ${name}, seja bem-vindo(a)!`);
+  aria-labelledby={`${slug}-heading`}
+
+Ver também: secção 5.1, 14.
+
+
+================================================================================
+O QUE É O SPREAD DE OBJETO (...obj) NO JSX?
+================================================================================
+Definição: `...` antes de um objeto **copia as suas propriedades** como props do elemento
+React / atributos DOM.
+Para que serve no projeto: injetar `target` e `rel` só quando `external` é verdadeiro.
+Trecho de código:
+
+  <a
+    href={href}
+    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+  >
+
+Ver também: secção 6, 14.
+
+
+================================================================================
+O QUE É O ENCADEAMENTO OPCIONAL (?. — OPTIONAL CHAINING)?
+================================================================================
+Definição: operador que **para** se o valor à esquerda for `null` ou `undefined`, devolvendo
+`undefined` em vez de lançar erro ao aceder `.` ou chamar `()`.
+Para que serve no projeto: só chamar `scrollIntoView` se `getElementById` encontrar o
+elemento.
+Trecho de código:
+
+  document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+
+Ver também: secção 7.
+
+
+================================================================================
+O QUE É O OPERADOR LÓGICO ! (NÃO)?
+================================================================================
+Definição: negação booleana; com valores não booleanos aplica-se **coerção** a boolean.
+Para que serve no projeto: `!image`, `!link` em `isComingSoon`.
+Trecho de código:
+
+  const noImage = !image || image === "";
+
+Ver também: secção 9.1.
+
+
+================================================================================
+O QUE É O OPERADOR LÓGICO || (OU)?
+================================================================================
+Definição: **OU curto-circuito**: se o lado esquerdo for truthy, devolve-o; senão avalia e
+devolve o direito.
+Para que serve no projeto: combinar várias condições de “sem imagem/link”; `href={projeto.link || "#"}`.
+Trechos de código:
+
+  const noImage = !image || image === "";
+  href={projeto.link || "#"}
+
+Ver também: secções 9.1, 9.5.
+
+
+================================================================================
+O QUE É O OPERADOR LÓGICO && (E)?
+================================================================================
+Definição: **E curto-circuito**: se o esquerdo for falsy, devolve-o; senão devolve o
+direito.
+Para que serve no projeto: `return noImage && noLink` exige ambas verdadeiras.
+Trecho de código:
+
+  return noImage && noLink;
+
+Ver também: secção 9.1.
+
+
+================================================================================
+O QUE É O OPERADOR TERNÁRIO (condição ? a : b)?
+================================================================================
+Definição: expressão condicional **inline** que devolve um de dois valores.
+Para que serve no projeto: texto da saudação, classes CSS condicionais, `aria-label` do
+menu, placeholder “Em breve” vs imagem, spread condicional no Footer.
+Trechos de código:
+
+  {userName ? `Olá ${userName}!` : "Olá"}
+  menuOpen ? "Fechar menu" : "Abrir menu"
+  {isComingSoon(projeto) ? ( <div>...</div> ) : ( <img ... /> )}
+
+Ver também: secção 14.
+
+
+================================================================================
+O QUE É A INSTRUÇÃO if?
+================================================================================
+Definição: execução condicional de um bloco quando a expressão é **truthy**.
+Para que serve no projeto: só chamar `setUserName` e `alert` se `prompt` devolver nome não
+vazio.
+Trecho de código:
+
+  if (name) {
+    setUserName(name);
+    alert(`Olá, ${name}, seja bem-vindo(a)!`);
+  }
+
+Ver também: secção 5.2, 14 (truthiness).
+
+
+================================================================================
+O QUE É A INSTRUÇÃO return?
+================================================================================
+Definição: termina a função e **devolve** um valor ao chamador; em componentes React o valor
+costuma ser **JSX**.
+Para que serve no projeto: devolver a árvore de UI de cada componente.
+Trecho de código:
+
+  return (
+    <UserProvider>
+      <Routes>...</Routes>
+    </UserProvider>
+  );
+
+Ver também: secções 2–4, 9.3.
+
+
+================================================================================
+O QUE É O MÉTODO .MAP() (ARRAY.PROTOTYPE.MAP)?
+================================================================================
+Definição: **método de arrays** que percorre cada elemento, aplica uma função callback e
+constrói um **novo array** com os resultados; **não altera** o array original.
+Para que serve no projeto: transformar listas (`links`, `socialLinks`, `techIcons`,
+`projects`) numa lista de elementos React irmãos.
+Como pensar no `.map()`:
+- Pega uma lista de dados (ex.: objetos de links).
+- Passa item por item por uma "fábrica" (callback).
+- Recebe uma nova lista pronta para renderizar.
+- No React, essa nova lista costuma ser JSX.
+
+Passo a passo mental (no seu código):
+1) `links` é um array com objetos `{ to, label }`.
+2) O `.map(...)` visita cada objeto.
+3) Em cada visita, você retorna um `<Link ...>{label}</Link>`.
+4) O resultado final é um array de componentes `<Link />`, que o React renderiza.
+
+Erros comuns para evitar:
+- Esquecer de `return` dentro da callback quando usa `{ }`.
+- Não informar `key` estável para cada item.
+- Confundir com `.forEach()`: o `forEach` não devolve array transformado.
+Trechos de código:
+
+  {links.map(({ to, label }) => (
+    <Link key={to} to={to} ...>{label}</Link>
+  ))}
+
+  {socialLinks.map(({ href, label, Icon, external }) => (
+    <a key={label} href={href} ...><Icon size={24} aria-hidden /></a>
+  ))}
+
+  {techIcons.map(({ Icon, mod, title }) => (
+    <span key={mod} className={`hero__tech-icon--${mod}`} title={title}>
+      <Icon size={20} aria-hidden />
+    </span>
+  ))}
+
+  {projects.map((projeto, index) => (
+    <a key={`${slug}-${index}`} href={projeto.link || "#"}>...</a>
+  ))}
+
+Nota: em JSX o `map` costuma estar dentro de `{ }` porque é uma expressão JavaScript.
+Ver também: secções 5.4, 6, 7, 9.3.
+
+
+================================================================================
+O QUE É O MÉTODO .REPLACE() (STRING.PROTOTYPE.REPLACE)?
+================================================================================
+Definição: devolve uma **nova string** com substituições; pode receber **string** ou
+**RegExp**; com regex global (`g`) substitui todas as ocorrências.
+Para que serve no projeto: `sectionSlug` troca espaços por hífenes no título da secção.
+Como pensar no `.replace()`:
+- Você tem um texto original.
+- Define "o que procurar" (string ou regex).
+- Define "pelo que trocar".
+- Recebe um novo texto, sem alterar o original.
+
+No seu caso: `replace(/\s+/g, "-")` encontra blocos de espaço e converte em `-`.
+Trecho de código:
+
+  return title.replace(/\s+/g, "-").toLowerCase();
+
+Ver também: secção 9.2.
+
+
+================================================================================
+O QUE É O MÉTODO .TOLOWERCASE() (STRING.PROTOTYPE.TOLOWERCASE)?
+================================================================================
+Definição: devolve a mesma string em **minúsculas** (nova string).
+Para que serve no projeto: normalizar o `slug` usado em `id` e `aria-labelledby`.
+Como pensar no `.toLowerCase()`:
+- Serve para padronizar texto e evitar diferenças entre "Sobre", "sobre" e "SOBRE".
+- É muito útil em ids, URLs e comparações de texto.
+Trecho de código:
+
+  return title.replace(/\s+/g, "-").toLowerCase();
+
+Ver também: secção 9.2.
+
+
+================================================================================
+O QUE É UM LITERAL DE EXPRESSÃO REGULAR (REGEX) — /.../flags?
+================================================================================
+Definição: notação `/padrão/flags` que cria um objeto `RegExp`; flag `g` = global (todas as
+correspondências).
+Para que serve no projeto: em `replace(/\s+/g, "-")`, `\s+` significa “um ou mais caracteres
+de espaço em branco”.
+Trecho de código:
+
+  title.replace(/\s+/g, "-")
+
+Ver também: secção 9.2 (dicionário antigo 19.A).
+
+
+================================================================================
+O QUE É UM OBJETO LITERAL { chave: valor }?
+================================================================================
+Definição: sintaxe para criar um **objeto** com propriedades nomeadas.
+Para que serve no projeto: cada entrada de `links`, `socialLinks`, `techIcons`; cada
+projeto em `portfolioData.js`; objeto passado a `value={{ userName, setUserName }}`.
+Trecho de código:
+
+  {
+    image: Portflow,
+    title: "Portflow",
+    tech: "JavaScript | HTML | CSS",
+    link: "https://github.com/...",
+  }
+
+Ver também: secção 10.
+
+
+================================================================================
+O QUE É O import { ... } from "react" (HOOKS E API)?
+================================================================================
+Definição: importação **nomeada** das funções que o pacote `react` exporta.
+Para que serve no projeto: `useState`, `useEffect`, `useContext`, `createContext`.
+Trecho de código:
+
+  import { createContext, useState } from "react";
+  import { useState, useEffect, useContext } from "react";
+
+Ver também: secções 3, 5, 8.
+
+
+================================================================================
+O QUE É A FUNÇÃO createContext()?
+================================================================================
+Definição: API do React que cria um objeto **Context** para partilhar dados sem passar props
+nível a nível.
+Para que serve no projeto: `UserContext` para o nome do utilizador.
+Trecho de código:
+
+  export const UserContext = createContext(null);
+
+Ver também: secção 3.
+
+
+================================================================================
+O QUE É O HOOK useState()?
+================================================================================
+Definição: Hook que associa **estado local** ao componente; devolve `[valor, setValor]`;
+chamar o setter agenda um **re-render**.
+Para que serve no projeto: nome global (`UserContext`) e estado do menu (`Header`).
+Trechos de código:
+
+  const [userName, setUserName] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+Ver também: secções 3, 5.1.
+
+
+================================================================================
+O QUE É O COMPONENTE Context.Provider?
+================================================================================
+Definição: cada Contexto React expõe um componente `.Provider` que aceita `value` e o
+disponibiliza aos descendentes.
+Para que serve no projeto: envolver a árvore com `{ userName, setUserName }`.
+Trecho de código:
+
+  <UserContext.Provider value={{ userName, setUserName }}>
+    {children}
+  </UserContext.Provider>
+
+Ver também: secção 3.
+
+
+================================================================================
+O QUE É A PROP children?
+================================================================================
+Definição: prop **implícita** com tudo o que está entre `<Tag>...</Tag>`.
+Para que serve no projeto: `UserProvider` renderiza `{children}` para não “apagar” o que
+`App.js` colocou dentro dele.
+Trecho de código:
+
+  export function UserProvider({ children }) {
+    return (
+      <UserContext.Provider value={{ userName, setUserName }}>
+        {children}
+      </UserContext.Provider>
+    );
+  }
+
+Ver também: secção 3.
+
+
+================================================================================
+O QUE É O HOOK useContext()?
+================================================================================
+Definição: Hook que lê o `value` do **Provider** mais próximo daquele tipo de Context.
+Para que serve no projeto: ler e atualizar `userName` no `Header`; só ler em `AboutPage`.
+Trechos de código:
+
+  const { userName, setUserName } = useContext(UserContext);
+  const { userName } = useContext(UserContext);
+
+Ver também: secções 5.3, 8.
+
+
+================================================================================
+O QUE É O HOOK useEffect()?
+================================================================================
+Definição: Hook para **efeitos colaterais** (I/O, DOM, timers, subscrições) que devem correr
+**fora** do render puro; a função corre após commit ao ecrã; o segundo argumento são
+**dependências** que controlam quando reexecutar.
+Para que serve no projeto: mostrar `prompt` uma vez (na prática) após montar o Header.
+Trecho de código:
+
+  useEffect(() => {
+    const name = prompt(NAME_ACCESSIBILITY_PROMPT);
+    if (name) {
+      setUserName(name);
+      alert(`Olá, ${name}, seja bem-vindo(a)!`);
+    }
+  }, [setUserName]);
+
+Ver também: secção 5.2.
+
+
+================================================================================
+O QUE É O FRAGMENTO REACT (<> </> — REACT.FRAGMENT)?
+================================================================================
+Definição: agrupa vários nós irmãos **sem** adicionar um elemento HTML extra ao DOM.
+Para que serve no projeto: `Layout` devolve `Header`, `main` e `Footer` lado a lado.
+Trecho de código:
+
+  return (
+    <>
+      <Header />
+      <main className="page-main"><Outlet /></main>
+      <Footer />
+    </>
+  );
+
+Ver também: secção 4.
+
+
+================================================================================
+O QUE É ReactDOM.createRoot()?
+================================================================================
+Definição: API React 18 que cria uma **raiz de renderização** ligada a um elemento DOM.
+Para que serve no projeto: ponto de montagem da SPA em `#root`.
+Trecho de código:
+
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+
+Ver também: secção 1.
+
+
+================================================================================
+O QUE É O MÉTODO .RENDER() DO OBJETO ROOT?
+================================================================================
+Definição: método devolvido por `createRoot` que **monta ou atualiza** a árvore React dentro
+do elemento DOM associado.
+Para que serve no projeto: renderizar `HashRouter` + `App`.
+Trecho de código:
+
+  root.render(
+    <HashRouter>
+      <App />
+    </HashRouter>
+  );
+
+Ver também: secção 1.
+
+
+================================================================================
+O QUE É JSX?
+================================================================================
+Definição: sintaxe estendida a JavaScript que **parece HTML** mas é compilada (ex. Babel)
+para chamadas como `React.createElement(...)`.
+Para que serve no projeto: descrever toda a interface de forma declarativa.
+Trecho de código:
+
+  return <section className="hero" id="inicio">...</section>;
+
+Ver também: secção 11.
+
+
+================================================================================
+O QUE É A PROP especial key?
+================================================================================
+Definição: prop usada pelo React para **identificar** nós de listas na reconciliação; deve
+ser estável entre renders quando possível.
+Para que serve no projeto: `key={to}`, `key={label}`, `key={mod}`, `key={\`${slug}-${index}\`}`.
+Trecho de código:
+
+  <Link key={to} to={to} ...>
+
+Ver também: secções 5.4, 9.3.
+
+
+================================================================================
+O QUE É className NO JSX?
+================================================================================
+Definição: em React, o atributo **`className`** corresponde ao **`class`** do HTML (porque
+`class` é palavra reservada em JS antigo).
+Para que serve no projeto: ligar elementos a regras nos ficheiros `.css`.
+Trecho de código:
+
+  <main className="page-main">
+
+Ver também: secção 15.
+
+
+================================================================================
+O QUE É O MANIPULADOR onClick (E EVENTOS EM JSX)?
+================================================================================
+Definição: prop que regista uma função a correr quando ocorre o evento de clique do rato
+(teclado/assistência podem também ativar).
+Para que serve no projeto: abrir/fechar menu; fechar menu ao navegar; scroll suave no CTA.
+Trechos de código:
+
+  onClick={() => setMenuOpen((open) => !open)}
+  onClick={() => setMenuOpen(false)}
+  <a href="#contato" onClick={scrollToContact}>
+
+Ver também: secções 5.1, 5.4, 7.
+
+
+================================================================================
+O QUE É RENDERIZAR UM COMPONENTE A PARTIR DE UMA VARIÁVEL (ex.: <Icon />)?
+================================================================================
+Definição: se `Icon` é uma variável que referencia um componente React (maiúscula), JSX
+trata-o como componente dinâmico.
+Para que serve no projeto: lista de ícones `react-icons` sem repetir JSX para cada ícone.
+Trecho de código:
+
+  {techIcons.map(({ Icon, mod, title }) => (
+    <span key={mod} ...><Icon size={20} aria-hidden /></span>
+  ))}
+
+Ver também: secção 6, 16.
+
+
+================================================================================
+O QUE É O COMPONENTE HashRouter?
+================================================================================
+Definição: fornecedor de contexto de navegação baseado na parte **hash** da URL (`#/rota`).
+Para que serve no projeto: SPA em hospedagem estática sem configurar fallback no servidor.
+Trecho de código:
+
+  <HashRouter>
+    <App />
+  </HashRouter>
+
+Ver também: secções 1, 11.
+
+
+================================================================================
+O QUE É O COMPONENTE Routes?
+================================================================================
+Definição: contentor que **avalia** as `Route` filhas e escolhe quais renderizar consoante
+o URL atual.
+Para que serve no projeto: definir todas as rotas da app num só sítio.
+Trecho de código:
+
+  <Routes>
+    <Route element={<Layout />}>...</Route>
+  </Routes>
+
+Ver também: secção 2.
+
+
+================================================================================
+O QUE É O COMPONENTE Route?
+================================================================================
+Definição: associa um **path** (e outras props) a um **element** React a mostrar.
+Para que serve no projeto: mapear `/`, `/sobre`, `/projetos` para páginas.
+Trecho de código:
+
+  <Route path="/sobre" element={<AboutPage />} />
+
+Ver também: secção 2.
+
+
+================================================================================
+O QUE É O COMPONENTE Outlet?
+================================================================================
+Definição: “buraco” onde as **rotas filhas** são renderizadas dentro de uma rota pai.
+Para que serve no projeto: trocar só o conteúdo de `<main>` mantendo Header/Footer.
+Trecho de código:
+
+  <main className="page-main">
+    <Outlet />
+  </main>
+
+Ver também: secção 4.
+
+
+================================================================================
+O QUE É O COMPONENTE Link E A PROP to?
+================================================================================
+Definição: `Link` navega no **cliente** (sem reload completo); `to` é o destino (string ou
+objeto, aqui string).
+Para que serve no projeto: menu de navegação principal.
+Trecho de código:
+
+  <Link className="site-nav__link" to={to} onClick={() => setMenuOpen(false)}>
+    {label}
+  </Link>
+
+Ver também: secções 5.4, 11.
+
+
+================================================================================
+O QUE É document.getElementById()?
+================================================================================
+Definição: método do **document** DOM que procura o primeiro elemento com o `id` dado.
+Para que serve no projeto: obter `#root` para `createRoot`; obter `#contato` para scroll.
+Trechos de código:
+
+  ReactDOM.createRoot(document.getElementById("root"));
+  document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+
+Ver também: secções 1, 7, 19.D antiga.
+
+
+================================================================================
+O QUE É O MÉTODO .scrollIntoView()?
+================================================================================
+Definição: método de **Element** que pede ao browser para **mostrar** esse elemento na
+área visível; aceita opções como `behavior: "smooth"`.
+Para que serve no projeto: scroll suave até ao rodapé de contacto.
+Como pensar no `.scrollIntoView()`:
+- Primeiro você encontra o elemento (`getElementById`).
+- Depois pede ao navegador para rolar até ele.
+- Com `behavior: "smooth"`, a rolagem fica animada e mais agradável.
+Trecho de código:
+
+  document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+
+Ver também: secção 7.
+
+
+================================================================================
+O QUE É O MÉTODO .preventDefault() DO EVENTO?
+================================================================================
+Definição: método do objeto **evento** que cancela a **ação padrão** do browser (ex.: seguir
+a âncora imediatamente).
+Para que serve no projeto: no CTA “Entre em Contato”, controlar o scroll com JS.
+Como pensar no `.preventDefault()`:
+- Todo evento tem um comportamento padrão do navegador.
+- Você chama `preventDefault()` para assumir o controle manual desse comportamento.
+- No seu CTA, em vez de salto instantâneo da âncora, você aplica scroll suave com JavaScript.
+Trecho de código:
+
+  const scrollToContact = (e) => {
+    e.preventDefault();
+    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+Ver também: secção 7.
+
+
+================================================================================
+O QUE É A FUNÇÃO window.prompt()?
+================================================================================
+Definição: API do browser que mostra um diálogo com campo de texto; devolve **string** ou
+`null` se cancelar.
+Para que serve no projeto: pedir o nome (fluxo didático / teste).
+Trecho de código:
+
+  const name = prompt(NAME_ACCESSIBILITY_PROMPT);
+
+Ver também: secção 5.2.
+
+
+================================================================================
+O QUE É A FUNÇÃO window.alert()?
+================================================================================
+Definição: API do browser que mostra um diálogo de alerta bloqueante.
+Para que serve no projeto: saudar o utilizador após introduzir o nome.
+Trecho de código:
+
+  alert(`Olá, ${name}, seja bem-vindo(a)!`);
+
+Ver também: secção 5.2.
+
+
+================================================================================
+O QUE É A BIBLIOTECA react-icons?
+================================================================================
+Definição: pacote npm que exporta **ícones como componentes** React (SVG), por família
+(`fa`, `si`, etc.).
+Para que serve no projeto: LinkedIn, GitHub, e-mail; ícones de tecnologias na Home.
+Trechos de código:
+
+  import { FaLinkedin, FaEnvelope, FaGithub } from "react-icons/fa";
+  import { SiPython, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
+
+Ver também: secções 6, 16.
+
+
+================================================================================
+O QUE É A PROP size (react-icons)?
+================================================================================
+Definição: prop numérica comum nestes ícones para definir **largura/altura** em pixels.
+Trecho de código:
+
+  <Icon size={20} aria-hidden />
+  <FaLinkedin size={24} aria-hidden />
+
+Ver também: secção 16.
+
+
+================================================================================
+O QUE É styled-components E A FUNÇÃO styled.tag`...`?
+================================================================================
+Definição: biblioteca **CSS-in-JS**; `styled.footer` etc. são **tagged templates** que
+geram um componente React com estilos injetados.
+Para que serve no projeto: ficheiro legado `footer_style.js` (não usado pelo Layout atual).
+Trecho de código:
+
+  import styled from "styled-components";
+  export const Footer = styled.footer`
+    background: rgba(0,0,0,0.95);
+  `;
+
+Ver também: secção 18.
+
+
+================================================================================
+O QUE É O SELETOR & E &:hover DENTRO DE STYLED-COMPONENTS?
+================================================================================
+Definição: `&` referencia o **seletor atual** (o componente gerado); `&:hover` aplica estilos
+no estado hover desse elemento; aninhamento de `a { }` estiliza descendentes.
+Para que serve no projeto: hover dos links sociais no `footer_style.js`.
+Trecho de código:
+
+  a {
+    color: #64ffda;
+    &:hover {
+      color: #ffffff;
+      transform: translateY(-5px);
+    }
+  }
+
+Ver também: secção 18.
+
+
+================================================================================
+O QUE É O SELETOR UNIVERSAL * EM CSS?
+================================================================================
+Definição: seleciona **todos** os elementos.
+Para que serve no projeto: aplicar `box-sizing: border-box` globalmente.
+Trecho de código (index.css):
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+Ver também: secção 19.F antiga, checklist `index.css`.
+
+
+================================================================================
+O QUE É A PROPRIEDADE CSS box-sizing?
+================================================================================
+Definição: define como **largura e altura** contam padding e border (`border-box` inclui).
+Trecho: ver bloco acima em `index.css`.
+
+
+================================================================================
+O QUE SÃO OS PSEUDO-ELEMENTOS ::before E ::after?
+================================================================================
+Definição: geram **sub-árvores** fictícias no início/fim do conteúdo do elemento; precisam
+muitas vezes de `content: ""` para existirem.
+Para que serve no projeto: fundos decorativos (`.page-main::before`), decoração do hero,
+linha sob links do nav.
+Trechos de código:
+
+  .page-main::before {
+    content: "";
+    position: absolute;
+    ...
+  }
+
+Ver também: `layout.css`, `Header.css`, `HomePage.css`, checklist.
+
+
+================================================================================
+O QUE É A PROPRIEDADE CSS content?
+================================================================================
+Definição: define o conteúdo gerado para pseudo-elementos; `""` cria caixa vazia.
+Trecho: ver `::before` / `::after` nos `.css`.
+
+
+================================================================================
+O QUE É A PSEUDO-CLASSE :hover EM CSS?
+================================================================================
+Definição: aplica estilos quando o **apontador** está sobre o elemento (e estados
+equivalentes em teclado dependendo do UA).
+Para que serve no projeto: realce de links, cartões, ícones, foto de perfil.
+Exemplo (ProjectsPage.css):
+
+  .project-card:hover .project-card__image {
+    transform: scale(1.05);
+  }
+
+Ver também: vários `.css` na checklist secção 20.
+
+
+================================================================================
+O QUE É A REGRA @media EM CSS?
+================================================================================
+Definição: **media query** — aplica um bloco de CSS só quando a condição do meio for
+verdadeira (ex.: largura máxima).
+Para que serve no projeto: layout mobile (`max-width: 768px`) em Header, Home, About,
+Projects.
+Trecho de código:
+
+  @media (max-width: 768px) {
+    .site-header__menu {
+      display: flex;
+      ...
+    }
+  }
+
+Ver também: Header.css, HomePage.css, etc.
+
+
+================================================================================
+O QUE É FLEXBOX (display: flex E PROPRIEDADES RELACIONADAS)?
+================================================================================
+Definição: modelo de layout **unidimensional** (linha ou coluna); propriedades comuns:
+`flex-direction`, `justify-content`, `align-items`, `flex`, `flex-shrink`, `gap`.
+Para que serve no projeto: cabeçalho, rodapé, secção Sobre, corpo de cartões.
+Exemplo (AboutPage.css):
+
+  .presentation {
+    display: flex;
+    ...
+  }
+
+Ver também: checklist `Footer.css`, `AboutPage.css`.
+
+
+================================================================================
+O QUE É CSS GRID (display: grid, repeat(), minmax())?
+================================================================================
+Definição: layout **bidimensional** de linhas e colunas; `repeat()` e `minmax()` definem
+faixas flexíveis.
+Para que serve no projeto: grelha de projetos responsiva.
+Trecho de código (ProjectsPage.css):
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+
+Ver também: secção 19.F antiga.
+
+
+================================================================================
+O QUE É O SELETOR FILHO DIRETO (> ) EM CSS?
+================================================================================
+Definição: combina **pai > filho imediato** apenas.
+Trecho de código:
+
+  .projects-grid > a { ... }
+
+Ver também: ProjectsPage.css.
+
+
+================================================================================
+O QUE É A PSEUDO-CLASSE :nth-child()?
+================================================================================
+Definição: seleciona elementos que são o **n-ésimo filho** do pai, com sintaxe variada
+(`nth-child(1)`, etc.).
+Para que serve no projeto: animar cada barra do ícone hambúrguer ao abrir o menu.
+Trecho de código (Header.css):
+
+  .site-header__menu--open .site-header__menu-bar:nth-child(1) {
+    transform: rotate(45deg);
+  }
+
+Ver também: Header.css.
+
+
+================================================================================
+O QUE É A FUNÇÃO CSS calc()?
+================================================================================
+Definição: função nativa do CSS que **calcula** um valor a partir de uma expressão
+(mistura px, %, vh, etc.).
+Para que serve no projeto: altura do painel de navegação móvel.
+Trecho de código:
+
+  height: calc(100vh - 80px);
+
+Ver também: Header.css.
+
+
+================================================================================
+O QUE SÃO AS PROPRIEDADES CSS transition E transform?
+================================================================================
+Definição: `transition` interpola mudanças de propriedades no tempo; `transform` aplica
+**transformações geométricas** (rotação, escala, translação) sem alterar o fluxo do layout da
+mesma forma que top/left.
+Para que serve no projeto: animações suaves em hovers e menu hambúrguer.
+Trecho: ver `Header.css`, `ProjectsPage.css`, `HomePage.css`.
+
+Ver também: checklist secção 20.
+
+
+================================================================================
+O QUE É A FUNÇÃO CSS radial-gradient()?
+================================================================================
+Definição: gera uma imagem de **gradiente radial** (círculo/elipse) usável em `background`.
+Para que serve no projeto: brilho de fundo em `.page-main::before` (`layout.css`).
+Trecho (resumido):
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 150, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, ...);
+
+Ver também: layout.css.
+
+
+================================================================================
+O QUE É A PROPRIEDADE CSS scroll-margin-top?
+================================================================================
+Definição: desloca a **posição de scroll** de ancoragem para o elemento (útil com header
+fixo).
+Trecho (layout.css):
+
+  .page-main {
+    scroll-margin-top: 95px;
+  }
+
+Ver também: secção 19.F antiga.
+
+
+================================================================================
+O QUE É O PADRÃO DE CLASSES TIPO BEM (BLOCO__ELEMENTO--MODIFICADOR)?
+================================================================================
+Definição: convenção de nomes: bloco (`.hero`), elemento (`.hero__title`), modificador
+(`.hero__tech-icon--python`); no JS concatena-se o modificador com template string.
+Trecho (HomePage.js + CSS):
+
+  className={`hero__tech-icon hero__tech-icon--${mod}`}
+
+Ver também: secção 19.F antiga.
+
+
+================================================================================
+O QUE É <!DOCTYPE html> E A ESTRUTURA html / head / body?
+================================================================================
+Definição: `DOCTYPE` ativa o modo standards; `html` envolve o documento; `head` metadados e
+recursos; `body` conteúdo visível.
+Trecho: primeira linhas de `public/index.html`.
+
+
+================================================================================
+O QUE SÃO AS ETIQUETAS <meta> (charset, viewport, theme-color, description)?
+================================================================================
+Definição: metadados: charset (encoding), viewport (escala mobile), theme-color (cor UI do
+browser), description (resumo para SEO).
+Trecho: `public/index.html` dentro de `<head>`.
+
+
+================================================================================
+O QUE É <link rel="manifest" href="%PUBLIC_URL%/manifest.json">?
+================================================================================
+Definição: liga o documento ao **Web App Manifest** (nome, ícones, etc. para instalação
+PWA).
+Trecho: `public/index.html`.
+
+
+================================================================================
+O QUE É <link rel="preconnect">?
+================================================================================
+Definição: sugere ao browser estabelecer ligação cedo com outro **origem** (DNS/TLS) antes
+dos pedidos pesados (ex.: fontes).
+Trecho: `public/index.html` (Google Fonts).
+
+
+================================================================================
+O QUE É O PLACEHOLDER %PUBLIC_URL%?
+================================================================================
+Definição: substituído na **build** do Create React App pelo URL público da app.
+Trecho:
+
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+
+Ver também: secção 17.
+
+
+================================================================================
+O QUE É <div id="root"></div>?
+================================================================================
+Definição: nó vazio onde o React **injeta** a aplicação via `createRoot(...).render(...)`.
+Trecho: `public/index.html` + `index.js`.
+
+
+================================================================================
+O QUE É <noscript>?
+================================================================================
+Definição: conteúdo mostrado apenas quando **JavaScript está desativado**.
+Trecho: `public/index.html`.
+
+
+================================================================================
+O QUE SÃO ATRIBUTOS ARIA E HTML USADOS NO JSX (RESUMO “O QUE É”)?
+================================================================================
+Estes não são métodos JavaScript; são **atributos** passados ao DOM.
+
+• **id** — identificador único; usado por âncoras `#contato`, `getElementById`, `aria-controls`.
+• **href** — URL ou fragmento do link.
+• **target** — onde abrir o destino (`_blank` = nova aba).
+• **rel** — relação com o destino (`noopener noreferrer` em links externos).
+• **alt** — texto alternativo de `<img>`.
+• **title** — dica nativa ao pairar (ícones na Home).
+• **aria-label** — nome acessível quando o texto visível não basta.
+• **aria-labelledby** — referencia `id` de outro elemento que rotula esta região.
+• **aria-expanded** — se o controlo está expandido (menu).
+• **aria-controls** — qual `id` este controlo afeta.
+• **aria-hidden** — remove o nó da árvore de acessibilidade (ícone decorativo).
+• **type="button"** — botão que não submete formulários por acidente.
+
+Trechos: ver `Header.js`, `Footer.js`, `ProjectsPage.js`, secção 15 completa (guia narrativo).
+
+
+================================================================================
+O QUE É import DE FICHEIRO .css NO JAVASCRIPT?
+================================================================================
+Definição: import **só por efeitos laterais**; o bundler inclui o CSS no bundle da app.
+Trechos:
+
+  import "./index.css";
+  import "./styles/layout.css";
+
+Ver também: secção 12.
+
+
+================================================================================
+O QUE É PASSAR UMA FUNÇÃO AO setter DO useState (ATUALIZAÇÃO FUNCIONAL)?
+================================================================================
+Definição: em vez de `setState(novoValor)`, chama-se `setState(valorAnterior => novoValor)`;
+o React injeta o estado **mais recente**, evitando bugs com eventos em rajada.
+Para que serve no projeto: alternar menu com base no valor anterior.
+Trecho de código (Header.js):
+
+  onClick={() => setMenuOpen((open) => !open)}
+
+Ver também: secção 5.1.
+
+
+================================================================================
+O QUE SÃO AS PROPS path E element DO <Route>?
+================================================================================
+Definição: `path` é o **segmento de URL** a casar; `element` é o **React node** a renderizar
+quando há correspondência (pode ser componente ou fragmento).
+Trecho de código (App.js):
+
+  <Route path="/sobre" element={<AboutPage />} />
+  <Route element={<Layout />}> ... </Route>
+
+Ver também: secção 2.
+
+
+================================================================================
+O QUE SÃO AS ETIQUETAS SEMÂNTICAS <main>, <section>, <article>, <nav>, <footer>, <header>?
+================================================================================
+Definição: elementos HTML5 com **significado** (landmarks) para acessibilidade e SEO; não
+são “métodos”, estruturam o conteúdo.
+Para que serve no projeto: `Layout` usa `<main>`; páginas usam `<section>`; cartões de
+projeto usam `<article>`; `Header`/`Footer` usam `<header>`/`<footer>`; nav principal em
+`<nav>`.
+Trecho (Layout.js):
+
+  <main className="page-main">
+    <Outlet />
+  </main>
+
+Ver também: secções 4, 9.3.
+
+
+================================================================================
+O QUE É A PROPRIEDADE CSS pointer-events?
+================================================================================
+Definição: controla se o elemento é **alvo** de eventos de rato/toque; `none` ignora hits.
+Para que serve no projeto: o fundo `::before` de `.page-main` não bloqueia cliques no
+conteúdo (`layout.css`).
+Trecho:
+
+  pointer-events: none;
+
+
+================================================================================
+O QUE É A PROPRIEDADE CSS backdrop-filter?
+================================================================================
+Definição: aplica **filtro** (ex.: desfoque) à área **atrás** do elemento (efeito “vidro”).
+Para que serve no projeto: rodapé estilizado em `footer_style.js` (legado).
+Trecho:
+
+  backdrop-filter: blur(10px);
+
+
+================================================================================
+O QUE É A FUNÇÃO CSS min() (E SIMILARES max(), clamp())?
+================================================================================
+Definição: `min(a, b)` devolve o **menor** dos dois valores CSS; útil em layouts fluidos.
+Para que serve no projeto: dentro de `minmax(min(100%, 300px), 1fr)` em `ProjectsPage.css`
+a coluna não exige largura fixa maior que o ecrã.
+Trecho:
+
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+
+
+================================================================================
+NOTA FINAL SOBRE ESTA SECÇÃO 19
+================================================================================
+Todas as entradas acima **repetem em formato “O QUE É…”** o material que já existia nas
+secções 1–18 e na antiga 19 em bullets; **nenhuma informação foi removida** do documento —
+apenas **acrescentada** esta enciclopédia. Para estudo, podes ler o guia por ordem (1–18) e
+depois usar esta secção 19 como **índice alfabético por conceito** ou vice-versa.
+
+--------------------------------------------------------------------------------

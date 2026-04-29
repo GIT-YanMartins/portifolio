@@ -1,0 +1,171 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  scroll-margin-top: 95px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #000000 0%, #001a33 100%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 50, 100, 0.4),
+    rgba(0, 150, 255, 0.1)
+  );
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.1) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero__title {
+  font-size: 5rem;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.hero__title-accent {
+  color: #0096ff;
+  text-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2.2rem;
+    text-align: left;
+  }
+}
+
+.hero__tech {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.hero__tech-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hero__tech-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero__tech-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.25);
+}
+
+.hero__tech-icon--python {
+  color: #3776ab;
+  background: rgba(55, 118, 171, 0.1);
+}
+
+.hero__tech-icon--python:hover {
+  color: #ffd43b;
+  background: rgba(255, 212, 59, 0.1);
+}
+
+.hero__tech-icon--js {
+  color: #f7df1e;
+  background: rgba(247, 223, 30, 0.1);
+}
+
+.hero__tech-icon--js:hover {
+  color: #f7df1e;
+  background: rgba(247, 223, 30, 0.2);
+}
+
+.hero__tech-icon--html {
+  color: #e34f26;
+  background: rgba(227, 79, 38, 0.1);
+}
+
+.hero__tech-icon--html:hover {
+  color: #e34f26;
+  background: rgba(227, 79, 38, 0.2);
+}
+
+.hero__tech-icon--css {
+  color: #1572b6;
+  background: rgba(21, 114, 182, 0.1);
+}
+
+.hero__tech-icon--css:hover {
+  color: #1572b6;
+  background: rgba(21, 114, 182, 0.2);
+}
+
+.hero__subtitle {
+  font-size: 1.2rem;
+  margin: 0 0 2rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__cta {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid #0096ff;
+  color: #0096ff;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero__cta:hover {
+  background: #0096ff;
+  color: #000000;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
+}

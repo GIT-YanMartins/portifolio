@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Footer = styled.footer`
   background: rgba(0,0,0,0.95);
   padding: 2rem 0;
+  scroll-margin-top: 95px;
   text-align: center;
   border-top: 1px solid rgba(0,150,255,0.1);
   backdrop-filter: blur(10px);

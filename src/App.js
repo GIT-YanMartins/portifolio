@@ -1,23 +1,20 @@
-import React from "react"
-import Header from "./Components/Header/header"
-import Main from "./Components/Main/main"
-import Footer from "./Components/Footer/footer"
-import { UserProvider } from "./context/UserContext"
+import { Routes, Route } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
+import Layout from "./layout/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import ProjectsPage from "./pages/ProjectsPage";
 
-function App() {
+export default function App() {
   return (
     <UserProvider>
-      <div>
-        <Header />
-        <Main />
-        <Footer />
-      </div>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sobre" element={<AboutPage />} />
+          <Route path="/projetos" element={<ProjectsPage />} />
+        </Route>
+      </Routes>
     </UserProvider>
   );
 }
-
-export default App;
- 
-
-
-

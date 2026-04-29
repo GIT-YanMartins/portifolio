@@ -1,0 +1,34 @@
+.site-footer {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 2rem 0;
+  scroll-margin-top: 95px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 150, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 100;
+}
+
+.site-footer__social {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.site-footer__social a {
+  color: #64ffda;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.site-footer__social a:hover {
+  color: #ffffff;
+  transform: translateY(-5px);
+}
+
+.site-footer__copyright {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin: 0;
+}
